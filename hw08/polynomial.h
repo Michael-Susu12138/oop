@@ -31,6 +31,7 @@ public:
 private:
     Node* header;
     size_t degree;
+    void simplifyZeros(Polynomial&);
 };
 
 Polynomial operator+(const Polynomial&, const Polynomial&);

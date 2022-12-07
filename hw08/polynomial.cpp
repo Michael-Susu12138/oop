@@ -107,6 +107,11 @@ Polynomial& Polynomial::operator+=(const Polynomial& rhs){
         this_ptr = this_ptr -> next;
         less_ptr = less_ptr ->next;
     }
+    
+    // *this = result
+    //get rid of zeros
+    simplifyZeros(*this);
+    
     return *this;
 }
 
@@ -149,25 +154,14 @@ bool operator!=(const Polynomial& lhs, const Polynomial& rhs){
 ostream& operator<<(ostream& os,const Polynomial& rhs){
     // simplify the polynomials (reduce the zero coefficients)
     Polynomial::Node* local_ptr = rhs.header->next;
-    Polynomial temp(rhs);
-    
-    while(local_ptr->data == 0){
-        temp.header->next = local_ptr->next;
-        local_ptr = local_ptr->next;
-        --temp.degree;
-    }
-    
+    size_t local_degree = rhs.degree;
 
-    
-    Polynomial::Node* temp_ptr = temp.header->next;
-    size_t local_degree = temp.degree;
-
-    while(temp_ptr){
-        double local_data = temp_ptr->data;
+    while(local_ptr){
+        double local_data = local_ptr->data;
         if(local_data != 0){
             //if coef == 1
             // highest polynomial does not need plus sign
-            if(local_degree != temp.degree){
+            if(local_degree != rhs.degree){
                 os << " + ";
             }
             if(local_data == 1){
@@ -213,8 +207,12 @@ ostream& operator<<(ostream& os,const Polynomial& rhs){
                     os << local_data << "x^" << local_degree;
                 }
             }
+        } else{
+            if(rhs.degree == 0){ // for the default constructor output
+                os << 0;
+            }
         }
-        temp_ptr = temp_ptr->next;
+        local_ptr = local_ptr->next;
         --local_degree;
     }
     return os;
@@ -244,4 +242,19 @@ size_t Polynomial::size() const {
         local_ptr = local_ptr ->next;
     }
     return count;
+}
+
+void Polynomial::simplifyZeros(Polynomial& rhs){
+    Node* local_header = rhs.header;
+    Node* local_ptr = rhs.header->next;
+    while(local_ptr){
+        if(local_ptr->data == 0){
+            local_header->next = local_ptr -> next;
+            local_ptr = local_ptr->next;
+            --rhs.degree;
+        }
+        rhs.header = local_header;
+        return;
+        
+    }
 }
