@@ -67,6 +67,7 @@ Polynomial& Polynomial::operator=(const Polynomial& rhs){
 //destructor
 Polynomial::~Polynomial(){
     freeMemory(header);
+    delete header;
 }
 
 // operator overloading
@@ -244,4 +245,5 @@ void Polynomial::freeMemory(Node* head){
         local_ptr = local_ptr ->next;
         delete victim;
     }
+
 }
