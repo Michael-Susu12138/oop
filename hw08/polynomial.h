@@ -25,9 +25,6 @@ public:
     ~Polynomial();
     Polynomial& operator+=(const Polynomial&);
     double evaluate(double) const;
-    
-    // test purposes
-    size_t size() const;
 private:
     Node* header;
     size_t degree;

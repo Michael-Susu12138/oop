@@ -24,6 +24,7 @@ Polynomial::Polynomial(const vector<double> coefs): degree(coefs.size()-1){
         local_ptr->next = new Node(item);
         local_ptr = local_ptr->next;
     }
+    simplifyZeros(*this);
 }
 
 //big three
@@ -223,38 +224,26 @@ double Polynomial::evaluate(double x) const {
     Node* local_ptr = header->next;
     size_t local_degree = degree;
     double result = 0;
-    while(local_ptr->next){
+    while(local_ptr){
         double exp_x = 1;
         for(size_t i = local_degree; i>0; --i){
             exp_x *= x;
         }
         result += local_ptr->data * exp_x;
         --local_degree;
+        local_ptr = local_ptr ->next;
     }
     return result;
 }
 
-size_t Polynomial::size() const {
-    size_t count = 0;
-    Node* local_ptr = header->next;
-    while(local_ptr){
-        ++count;
-        local_ptr = local_ptr ->next;
-    }
-    return count;
-}
 
 void Polynomial::simplifyZeros(Polynomial& rhs){
-    Node* local_header = rhs.header;
     Node* local_ptr = rhs.header->next;
-    while(local_ptr){
-        if(local_ptr->data == 0){
-            local_header->next = local_ptr -> next;
-            local_ptr = local_ptr->next;
-            --rhs.degree;
-        }
-        rhs.header = local_header;
-        return;
-        
+    double local_data = local_ptr ->data;
+    while(local_ptr && local_data ==0){
+        rhs.header->next = local_ptr -> next;
+        local_ptr = local_ptr->next;
+        --rhs.degree;
+        local_data = local_ptr ->data;
     }
 }

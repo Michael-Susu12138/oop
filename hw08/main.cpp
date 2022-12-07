@@ -16,7 +16,7 @@ int main() {
 
     // Polynomial temp(p4);
     // cout << "temp: " << temp << endl;
-    
+
     //    cerr << "displaying polynomials\n";
     cout << "p1: " << p1 << endl;
     cout << "p2: " << p2 << endl;
@@ -27,7 +27,7 @@ int main() {
      Polynomial temp;
      temp = p2 + p3;
      cout << "temp: " << temp << endl;
-    
+
     cout << "p2 + p3: " << (p2+p3) << endl;
     cout << "p2 + p4: " << (p2+p4) << endl;
     cout << "p4 + p2: " << (p4+p2) << endl;
@@ -61,7 +61,7 @@ int main() {
     int x = 5;
     cout << "Evaluating p1 at " << x << " yields: " << p1.evaluate(5) << endl;
     cout << "Evaluating p2 at " << x << " yields: " << p2.evaluate(5) << endl;
-    
+
     Polynomial p7({3, 2, 1});           // 3x^2 + 2x + 1
     cout << "p7: " << p7 << endl;
     cout << "Evaluating p7 at " << x << " yields: " << p7.evaluate(5) << endl;
@@ -73,13 +73,13 @@ int main() {
 //    /*=================================================================
 //    NEW TEST CODE - test if cleaning the leading 0s
 //    ===================================================================*/
-//
-//    Polynomial p8({ 1, 1 });
-//    Polynomial p9({ -1, 1 });
-//    Polynomial p10({ 0, 0, 2 });
-//    //p8 + p9 tests if += does the cleanup()
-//    //p10 tests if constructor does the cleanup()
-//    cout << "((p8 + p9) == p10) is " << ((p8 + p9) == p10) << endl;
+
+    Polynomial p8({ 1, 1 });
+    Polynomial p9({ -1, 1 });
+    Polynomial p10({ 0, 0, 2 });
+    //p8 + p9 tests if += does the cleanup()
+    //p10 tests if constructor does the cleanup()
+    cout << "((p8 + p9) == p10) is " << ((p8 + p9) == p10) << endl;
 
     
 }
