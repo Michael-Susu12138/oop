@@ -31,7 +31,7 @@ void rangedFor_print_list(const list<int>& ls){
 
 //Task 11
 void auto_print_otherLs(const list<int>& ls){
-    for(auto const_iter = ls.begin(); const_iter != ls.end();++++const_iter){
+    for(auto const_iter = ls.begin(); const_iter != ls.end();++ ++const_iter){
         cout << *const_iter << "    ";
     }
     
@@ -80,7 +80,7 @@ list<int>::const_iterator ourFind(list<int>::const_iterator begin, list<int>::co
 
 // Task 20
 template<typename T, typename U>
-T ourFind(T begin, T end, U num){
+T ourFind(T begin, T end, const U& num){
     cout << "this is ourFind template" << endl;
     for(T const_iter = begin; const_iter != end; ++const_iter){
         if(*const_iter == num){
@@ -171,7 +171,7 @@ int main() {
     //    the iterator as in task 6.
     cout << "Task 7:\n";
     
-    for(list<int>::const_iterator const_iter = ls.begin(); const_iter != ls.end();++++const_iter){
+    for(list<int>::const_iterator const_iter = ls.begin(); const_iter != ls.end();++ ++const_iter){
         cout << *const_iter << "    ";
     }
     
@@ -333,24 +333,24 @@ int main() {
         cout << int_array[i] << "   ";
     }
     
-//    cout << "dynamic Finding 34" << endl;
-//
-//    int iterator_dyn1= find(int_array[0],int_array[ls.size()-1],34);
-//    if(iterator_dyn1 == int_array[ls.size()-1]){
-//        cout << "34 is not found in this dynamic array" << endl;
-//    } else {
-//        cout << iterator_dyn1 << endl;
-//    }
-//
-//    cout << "generic Finding 87" <<  endl;
+    cout << "dynamic Finding 34" << endl;
+
+    int* iterator_dyn1= find(int_array,int_array+ls.size(),34);
+    if(iterator_dyn1 == int_array+ls.size()){
+        cout << "34 is not found in this dynamic array" << endl;
+    } else {
+        cout << *iterator_dyn1 << endl;
+    }
+
+    cout << "generic Finding 87" <<  endl;
     
-//    int iterator_dyn2= find(int_array[0],int_array[ls.size()-1],87);
-//    if(iterator_dyn2== int_array[ls.size()-1]){
-//        cout << "87 is not found in this dynamic array" << endl;
-//    } else {
-//        cout << iterator_dyn2 << endl;
-//    }
-//    
+    int* iterator_dyn2= find(int_array,int_array+ls.size(),87);
+    if(iterator_dyn2== int_array+ls.size()){
+        cout << "87 is not found in this dynamic array" << endl;
+    } else {
+        cout << *iterator_dyn2 << endl;
+    }
+    
     
     delete [] int_array;
     
@@ -455,9 +455,7 @@ int main() {
     set<string> words_set;
     string word_set;
     while(ifs_set >> word_set){
-        if(words_set.find(word_set) == words_set.end()){
-            words_set.insert(word_set);
-        }
+        words_set.insert(word_set);
     }
     ifs_set.close();
     
@@ -486,16 +484,14 @@ int main() {
     string word_map;
     int counter = 0;
     while(ifs_map >> word_map){
-        if(words_map.find(word_map)==words_map.end()){
-            ++counter;
-            words_map[word_map].push_back(counter);
-        }
+        ++counter;
+        words_map[word_map].push_back(counter);
     }
     ifs_map.close();
     
 //    string key;
 //    int val;
-    for(auto pair: words_map){
+    for(const auto& pair: words_map){
         cout << pair.first <<" is in the position of ";
         for(int ele: pair.second){
             cout << ele << "    ";
