@@ -80,7 +80,7 @@ list<int>::const_iterator ourFind(list<int>::const_iterator begin, list<int>::co
 
 // Task 20
 template<typename T, typename U>
-T ourFind(T begin, T end, U num){
+T ourFind(T begin, T end, const U& num){
     cout << "this is ourFind template" << endl;
     for(T const_iter = begin; const_iter != end; ++const_iter){
         if(*const_iter == num){
@@ -455,9 +455,7 @@ int main() {
     set<string> words_set;
     string word_set;
     while(ifs_set >> word_set){
-        if(words_set.find(word_set) == words_set.end()){
-            words_set.insert(word_set);
-        }
+        words_set.insert(word_set);
     }
     ifs_set.close();
     
@@ -486,16 +484,14 @@ int main() {
     string word_map;
     int counter = 0;
     while(ifs_map >> word_map){
-        if(words_map.find(word_map)==words_map.end()){
-            ++counter;
-            words_map[word_map].push_back(counter);
-        }
+        ++counter;
+        words_map[word_map].push_back(counter);
     }
     ifs_map.close();
     
 //    string key;
 //    int val;
-    for(auto pair: words_map){
+    for(const auto& pair: words_map){
         cout << pair.first <<" is in the position of ";
         for(int ele: pair.second){
             cout << ele << "    ";
